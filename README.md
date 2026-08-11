@@ -1,36 +1,161 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kognii
 
-## Getting Started
+> AI-powered study assistant that transforms learning materials into personalized learning tools.
 
-First, run the development server:
+Kognii is a full-stack AI study assistant designed to help students turn their learning materials into interactive study resources.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Users can upload study materials or PDF documents, then use AI to generate summaries, quizzes, and flashcards from the content.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🌐 **Live Demo:** https://kognii.vercel.app
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ Features
 
-## Learn More
+### 🔐 Google Authentication
 
-To learn more about Next.js, take a look at the following resources:
+Users can securely sign in using their Google account.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Google OAuth
+- Protected dashboard
+- User-specific materials
+- Session-based authentication
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 📄 Study Material Management
 
-## Deploy on Vercel
+Users can create and manage their own study materials.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Add study materials
+- View material details
+- Store materials in PostgreSQL
+- Materials are associated with authenticated users
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 📑 PDF Upload
+
+Users can upload PDF documents directly to Kognii.
+
+The application:
+
+1. Receives the uploaded PDF
+2. Extracts the text content
+3. Processes the extracted content
+4. Stores the material in the database
+5. Makes the material available for AI-powered learning features
+
+### 🤖 AI Summaries
+
+Kognii can transform long study materials into concise summaries.
+
+The AI focuses on:
+
+- Main ideas
+- Key concepts
+- Important definitions
+- Relevant information
+
+### 🧠 AI Quiz Generation
+
+Kognii generates multiple-choice questions from the uploaded material.
+
+Each quiz contains:
+
+- Questions
+- Multiple-choice options
+- Correct answers
+- Interactive answer selection
+- Automatic scoring
+- Score feedback
+
+### 🗂️ AI Flashcards
+
+Kognii can transform study material into AI-generated flashcards for active recall.
+
+Flashcards are designed to help students review:
+
+- Concepts
+- Definitions
+- Important facts
+- Key relationships
+
+### 📊 Interactive Learning
+
+Instead of simply displaying AI-generated text, Kognii provides interactive learning tools that allow users to actively engage with their material.
+
+---
+
+# 🛠️ Tech Stack
+
+## Frontend
+
+- [Next.js](https://nextjs.org/)
+- React
+- TypeScript
+- Tailwind CSS
+
+## Backend
+
+- Next.js App Router
+- Next.js Route Handlers
+- Prisma ORM
+- PostgreSQL
+
+## Authentication
+
+- Auth.js
+- Google OAuth
+
+## AI
+
+- Google Gemini API
+
+## Document Processing
+
+- PDF text extraction
+- `pdfjs-dist`
+
+## Database
+
+- PostgreSQL
+- Prisma ORM
+
+## Deployment
+
+- Vercel
+
+---
+
+# 🏗️ Architecture
+
+Kognii follows a full-stack architecture where the frontend communicates with backend API routes, which then interact with external AI services and the database.
+
+```text
+                         ┌─────────────────────┐
+                         │       User          │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │      Next.js        │
+                         │     Frontend        │
+                         └──────────┬──────────┘
+                                    │
+                         API Requests / Actions
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │   Route Handlers    │
+                         │      Backend        │
+                         └──────┬───────┬──────┘
+                                │       │
+                   ┌────────────┘       └────────────┐
+                   ▼                                 ▼
+          ┌─────────────────┐              ┌─────────────────┐
+          │     Prisma      │              │  Gemini API     │
+          │      ORM        │              │       AI        │
+          └────────┬────────┘              └─────────────────┘
+                   │
+                   ▼
+          ┌─────────────────┐
+          │   PostgreSQL    │
+          │    Database     │
+          └─────────────────┘
